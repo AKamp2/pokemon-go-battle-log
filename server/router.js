@@ -16,6 +16,15 @@ const router = (app) => {
 
   app.post('/deleteDomo', mid.requiresLogin, controllers.Domo.deleteDomo);
 
+  app.get('/getBattles', mid.requiresLogin, controllers.Battle.getBattles);
+
+  app.get('/battlePage', mid.requiresLogin, controllers.Battle.battlePage);
+  app.post('/addBattle', mid.requiresLogin, controllers.Battle.addBattle);
+
+  app.post('/deleteBattle', mid.requiresLogin, controllers.Battle.deleteBattle);
+
+  app.get('/getUserStats', mid.requiresLogin, controllers.Battle.getUserStats);
+
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 

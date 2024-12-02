@@ -1,131 +1,159 @@
 const helper = require('./helper.js');
 const React = require('react');
 const { useState, useEffect } = React;
-const {createRoot} = require('react-dom/client');
+const { createRoot } = require('react-dom/client');
+const StatsTable = require('./stats.jsx');
 
-const handleDomo = (e, onDomoAdded) => {
+// Handle adding a new battle
+const handleBattle = (e, onBattleAdded) => {
     e.preventDefault();
     helper.hideError();
 
-    const name = e.target.querySelector('#domoName').value;
-    const age = e.target.querySelector('#domoAge').value;
-    const level = e.target.querySelector('#domoLevel').value;
+    const league = e.target.querySelector('#battleLeague').value;
+    const playerPokemon = [
+        e.target.querySelector('#playerPokemon1').value,
+        e.target.querySelector('#playerPokemon2').value,
+        e.target.querySelector('#playerPokemon3').value,
+    ];
+    const enemyPokemon = [
+        e.target.querySelector('#enemyPokemon1').value,
+        e.target.querySelector('#enemyPokemon2').value,
+        e.target.querySelector('#enemyPokemon3').value,
+    ];
+    const outcome = e.target.querySelector('#battleOutcome').value;
 
-    if(!name || !age || !level) {
-        helper.handleError('All fields are required');
+    if (!league || playerPokemon.includes('') || enemyPokemon.includes('') || !outcome) {
+        helper.handleError('All fields are required!');
         return false;
     }
 
-    helper.sendPost(e.target.action, {name, age, level}, onDomoAdded);
+    helper.sendPost(e.target.action, { league, playerPokemon, enemyPokemon, outcome }, onBattleAdded);
     return false;
 };
 
-const DomoForm = (props) => {
-    return(
-        <form id="domoForm"
-        onSubmit={(e) => handleDomo(e, props.triggerReload)}
-        name="domoForm"
-        action="/maker"
+// Form for adding battles
+const BattleForm = (props) => (
+    <form
+        id="battleForm"
+        onSubmit={(e) => handleBattle(e, props.triggerReload)}
+        action="/addBattle"
         method="POST"
-        className="domoForm"
-        >
-            <div>
-            <label htmlFor="name">Name: </label>
-            <input id="domoName" type="text" name="name" placeholder="Domo Name" />
-            </div>
-            <div>
-            <label htmlFor="age">Age: </label>
-            <input id="domoAge" type="number" min="0" name="age" />
-            </div>
-            <div>
-            <label htmlFor="level">Level: </label>
-            <input id="domoLevel" type="number" min="0" name="level" />
-            </div>
-            <input className="makeDomoSubmit" type="submit" value="Make Domo" />
-        </form>
+        className="battleForm"
+    >
+        <div>
+            <h2>Log Battle</h2>
+            <label htmlFor="league">League: </label>
+            <select id="battleLeague" name="league">
+                <option value="">Select a League</option>
+                <option value="Great League">Great League</option>
+                <option value="Ultra League">Ultra League</option>
+                <option value="Master League">Master League</option>
+                <option value="Little Cup">Little Cup</option>
+            </select>
+        </div>
+        <div>
+            <h3>Player Pokémon:</h3>
+            <input id="playerPokemon1" type="text" placeholder="Pokémon 1" />
+            <input id="playerPokemon2" type="text" placeholder="Pokémon 2" />
+            <input id="playerPokemon3" type="text" placeholder="Pokémon 3" />
+        </div>
+        <div>
+            <h3>Enemy Pokémon:</h3>
+            <input id="enemyPokemon1" type="text" placeholder="Pokémon 1" />
+            <input id="enemyPokemon2" type="text" placeholder="Pokémon 2" />
+            <input id="enemyPokemon3" type="text" placeholder="Pokémon 3" />
+        </div>
+        <div>
+            <label htmlFor="outcome">Outcome: </label>
+            <select id="battleOutcome" name="outcome">
+                <option value="">Select Outcome</option>
+                <option value="Win">Win</option>
+                <option value="Loss">Loss</option>
+            </select>
+        </div>
+        <input className="makeBattleSubmit" type="submit" value="Log Battle" />
+    </form>
+);
 
-    );
-};
-
-const DomoList = (props) => {
-    const [domos, setDomos] = useState(props.domos);
+// List of battles
+const BattleList = (props) => {
+    const [battles, setBattles] = useState([]);
 
     useEffect(() => {
-        const loadDomosFromServer = async () => {
-            const response = await fetch('/getDomos');
+        const loadBattlesFromServer = async () => {
+            const response = await fetch('/getBattles');
             const data = await response.json();
-            setDomos(data.domos);
+            setBattles(data.battles);
         };
-        loadDomosFromServer();
-    }, [props.reloadDomos]);
+        loadBattlesFromServer();
+    }, [props.reloadBattles]);
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch('/deleteDomo', {
+            const response = await fetch('/deleteBattle', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id }),
             });
-    
+
             if (!response.ok) {
                 const errorData = await response.json();
-                console.error('Failed to delete Domo:', errorData.error);
+                console.error('Failed to delete battle:', errorData.error);
                 return;
             }
-    
-            // Reload Domos after delete :)
+
             props.triggerReload();
         } catch (error) {
-            console.error('Error deleting Domo:', error);
+            console.error('Error deleting battle:', error);
         }
     };
 
-    if (domos.length === 0) {
+    if (battles.length === 0) {
         return (
-            <div className="domoList">
-                <h3 className="emptyDomo">No Domos Yet!</h3>
+            <div className="battleList">
+                <h3 className="emptyBattle">No Battles Logged Yet!</h3>
             </div>
         );
     }
 
-    const domoNodes = domos.map((domo) => {
-        return (
-            <div key={domo.id} className="domo">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
-                <h3 className="domoName">Name: {domo.name}</h3>
-                <h3 className="domoAge">Age: {domo.age}</h3>
-                <h3 className="domoLevel">Level: {domo.level}</h3>
-                <button
-                    onClick={() => handleDelete(domo._id)}
-                    className="deleteDomoButton"
-                >
-                    Delete
-                </button>
-            </div>
-        );
-    });
+    const battleNodes = battles.map((battle) => (
+        <div key={battle._id} className="battle">
+            <h3 className="battleLeague">League: {battle.league}</h3>
+            <h3 className="playerPokemon">Player Pokémon: {battle.playerPokemon.join(', ')}</h3>
+            <h3 className="enemyPokemon">Enemy Pokémon: {battle.enemyPokemon.join(', ')}</h3>
+            <h3 className="battleOutcome">Outcome: {battle.outcome}</h3>
+            <button onClick={() => handleDelete(battle._id)} className="deleteBattleButton">
+                Delete
+            </button>
+        </div>
+    ));
 
-    return <div className="domoList">{domoNodes}</div>;
+    return <div className="battleList">{battleNodes}</div>;
 };
 
+// Main App Component
 const App = () => {
-    const [reloadDomos, setReloadDomos] = useState(false);
+    const [reloadBattles, setReloadBattles] = useState(false);
 
     return (
         <div>
-            <div id="makeDomo">
-                <DomoForm triggerReload={() => setReloadDomos(!reloadDomos)} />
+            <div id="stats">
+                <StatsTable />
             </div>
-            <div id="domos">
-                <DomoList domos={[]} reloadDomos={reloadDomos} triggerReload={() => setReloadDomos(!reloadDomos)} />
+            <div id="logBattle">
+                <BattleForm triggerReload={() => setReloadBattles(!reloadBattles)} />
+            </div>
+            <div id="battles">
+                <BattleList reloadBattles={reloadBattles} triggerReload={() => setReloadBattles(!reloadBattles)} />
             </div>
         </div>
     );
 };
 
+// Initialize the app
 const init = () => {
     const root = createRoot(document.getElementById('app'));
-    root.render( <App /> );
+    root.render(<App />);
 };
 
 window.onload = init;
