@@ -56,4 +56,4 @@ const StatsTable = () => {
   );
 };
 
-module.exports = stats;
+module.exports = StatsTable;
