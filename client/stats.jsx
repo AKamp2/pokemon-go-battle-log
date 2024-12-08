@@ -1,7 +1,15 @@
 const React = require('react');
 const { useState, useEffect } = React;
 
-const StatsTable = () => {
+// Map so the table displays nicer looking league names than 'GreatLeague'
+const leagueDisplayMap = {
+  LittleCup: 'Little Cup',
+  GreatLeague: 'Great League',
+  UltraLeague: 'Ultra League',
+  MasterLeague: 'Master League',
+};
+
+const StatsTable = ({ reloadTrigger }) => {
   const [stats, setStats] = useState({
     LittleCup: { wins: 0, losses: 0 },
     GreatLeague: { wins: 0, losses: 0 },
@@ -11,18 +19,24 @@ const StatsTable = () => {
     totalLosses: 0,
   });
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const response = await fetch('/getUserStats');
-        const data = await response.json();
-        setStats(data.stats);
-      } catch (err) {
-        console.error('Error fetching stats:', err);
+  const fetchStats = async () => {
+    try {
+      const response = await fetch('/getUserStats');
+      if (!response.ok) {
+        console.error('Failed to fetch stats');
+        return;
       }
-    };
+
+      const data = await response.json();
+      setStats(data.stats);
+    } catch (err) {
+      console.error('Error fetching stats:', err);
+    }
+  };
+
+  useEffect(() => {
     fetchStats();
-  }, []);
+  }, [reloadTrigger]);
 
   const totalRatio =
     stats.totalWins + stats.totalLosses > 0
@@ -45,7 +59,7 @@ const StatsTable = () => {
             .filter((key) => key !== 'totalWins' && key !== 'totalLosses')
             .map((league) => (
               <tr key={league}>
-                <td>{league}</td>
+                <td>{leagueDisplayMap[league] || league}</td>
                 <td>{stats[league].wins}</td>
                 <td>{stats[league].losses}</td>
               </tr>

@@ -75,37 +75,45 @@ const deleteBattle = async (req, res) => {
 
 // Get user stats
 const getUserStats = async (req, res) => {
-    try {
-      const query = { owner: req.session.account._id };
-      const battles = await Battle.find(query).lean().exec();
-  
-      const stats = {
-        LittleCup: { wins: 0, losses: 0 },
-        GreatLeague: { wins: 0, losses: 0 },
-        UltraLeague: { wins: 0, losses: 0 },
-        MasterLeague: { wins: 0, losses: 0 },
-        totalWins: 0,
-        totalLosses: 0,
-      };
-  
-      // Calculate stats
-      battles.forEach((battle) => {
-        const leagueStats = stats[battle.league];
-        if (battle.outcome === 'Win') {
-          leagueStats.wins += 1;
-          stats.totalWins += 1;
-        } else if (battle.outcome === 'Loss') {
-          leagueStats.losses += 1;
-          stats.totalLosses += 1;
-        }
-      });
-  
-      return res.json({ stats });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Error retrieving user stats!' });
-    }
-  };
+  try {
+    const query = { owner: req.session.account._id };
+    const battles = await Battle.find(query).lean().exec();
+
+    // Ensure all leagues are initialized in stats
+    const stats = {
+      LittleCup: { wins: 0, losses: 0 },
+      GreatLeague: { wins: 0, losses: 0 },
+      UltraLeague: { wins: 0, losses: 0 },
+      MasterLeague: { wins: 0, losses: 0 },
+      totalWins: 0,
+      totalLosses: 0,
+    };
+
+    // Safely calculate stats
+    battles.forEach((battle) => {
+      const leagueStats = stats[battle.league];
+      
+      // Skip if league is undefined or invalid
+      if (!leagueStats) {
+        console.warn(`Invalid league encountered: ${battle.league}`);
+        return;
+      }
+
+      if (battle.outcome === 'Win') {
+        leagueStats.wins += 1;
+        stats.totalWins += 1;
+      } else if (battle.outcome === 'Loss') {
+        leagueStats.losses += 1;
+        stats.totalLosses += 1;
+      }
+    });
+
+    return res.json({ stats });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Error retrieving user stats!' });
+  }
+};
 
 module.exports = {
   battlePage,

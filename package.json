@@ -1,7 +1,7 @@
 {
-  "name": "domomaker",
+  "name": "pogobattlelog",
   "version": "1.0.0",
-  "description": "A Simple Login Example using Node.js, Mongo and Redis",
+  "description": "An app for logging battles from the hit mobile game Pokemon Go",
   "main": "./server/app.js",
   "scripts": {
     "webpack": "webpack",
@@ -18,7 +18,7 @@
     "Redis",
     "Login"
   ],
-  "author": "Cody Van De Mark / Austin Willoughby",
+  "author": "Aidan Kamp",
   "license": "Apache 2.0",
   "devDependencies": {
     "@babel/core": "^7.26.0",

@@ -45,10 +45,10 @@ const BattleForm = (props) => (
             <label htmlFor="league">League: </label>
             <select id="battleLeague" name="league">
                 <option value="">Select a League</option>
-                <option value="Great League">Great League</option>
-                <option value="Ultra League">Ultra League</option>
-                <option value="Master League">Master League</option>
-                <option value="Little Cup">Little Cup</option>
+                <option value="LittleCup">Little Cup</option>
+                <option value="GreatLeague">Great League</option>
+                <option value="UltraLeague">Ultra League</option>
+                <option value="MasterLeague">Master League</option>
             </select>
         </div>
         <div>
@@ -133,18 +133,20 @@ const BattleList = (props) => {
 
 // Main App Component
 const App = () => {
-    const [reloadBattles, setReloadBattles] = useState(false);
+    const [reloadTrigger, setReloadTrigger] = useState(false);
+
+    const triggerReload = () => setReloadTrigger(!reloadTrigger);
 
     return (
         <div>
-            <div id="stats">
-                <StatsTable />
-            </div>
             <div id="logBattle">
-                <BattleForm triggerReload={() => setReloadBattles(!reloadBattles)} />
+                <BattleForm triggerReload={triggerReload} />
+            </div>
+            <div id="stats">
+                <StatsTable reloadTrigger={reloadTrigger} />
             </div>
             <div id="battles">
-                <BattleList reloadBattles={reloadBattles} triggerReload={() => setReloadBattles(!reloadBattles)} />
+                <BattleList reloadBattles={reloadTrigger} triggerReload={triggerReload} />
             </div>
         </div>
     );
