@@ -5,7 +5,7 @@ const { Battle } = models;
 // Render the app view
 const battlePage = (req, res) => res.render('app');
 
-//render stats view
+// render stats view
 const statsPage = (req, res) => res.render('stats');
 
 // Create a new battle entry
@@ -148,15 +148,12 @@ const getUsageData = async (req, res) => {
     });
 
     // Convert userUsage to an array of objects
-    const userArray = [];
-    for (const pokemon in userUsage) {
-      const count = userUsage[pokemon];
-      userArray.push({
-        name: pokemon,
-        count,
-        percentage: (count / totalBattles) * 100,
-      });
-    }
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+    const userArray = Object.entries(userUsage).map(([pokemon, count]) => ({
+      name: pokemon,
+      count,
+      percentage: (count / totalBattles) * 100,
+    }));
 
     // Sort the array by count descending
     userArray.sort((a, b) => b.count - a.count);
@@ -172,15 +169,11 @@ const getUsageData = async (req, res) => {
     }
 
     // Repeat for enemyUsage
-    const enemyArray = [];
-    for (const pokemon in enemyUsage) {
-      const count = enemyUsage[pokemon];
-      enemyArray.push({
-        name: pokemon,
-        count,
-        percentage: (count / totalBattles) * 100,
-      });
-    }
+    const enemyArray = Object.entries(enemyUsage).map(([pokemon, count]) => ({
+      name: pokemon,
+      count,
+      percentage: (count / totalBattles) * 100,
+    }));
 
     // Sort and slice for enemy Pokémon
     enemyArray.sort((a, b) => b.count - a.count);
