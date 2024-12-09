@@ -1,7 +1,7 @@
 const React = require('react');
 const { useState, useEffect } = React;
 const { createRoot } = require('react-dom/client');
-const StatsTable = require('./stats.jsx');
+//const StatsTable = require('./stats.jsx');
 const BattleForm = require('./battleform.jsx');
 const BattleList = require('./battlelist.jsx');
 
@@ -14,9 +14,6 @@ const App = () => {
     <div>
       <div id="logBattle">
         <BattleForm triggerReload={triggerReload} />
-      </div>
-      <div id="stats">
-        <StatsTable reloadTrigger={reloadTrigger} />
       </div>
       <div id="battles">
         <BattleList reloadBattles={reloadTrigger} triggerReload={triggerReload} />
@@ -31,3 +28,7 @@ const init = () => {
 };
 
 window.onload = init;
+
+//<div id="stats">
+//        <StatsTable reloadTrigger={reloadTrigger} />
+//      </div>

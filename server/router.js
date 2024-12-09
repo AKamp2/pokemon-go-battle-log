@@ -10,8 +10,7 @@ const router = (app) => {
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 
   app.get('/app', mid.requiresLogin, controllers.Battle.battlePage);
-
-  app.post('/deleteDomo', mid.requiresLogin, controllers.Domo.deleteDomo);
+  app.get('/stats', mid.requiresLogin, controllers.Battle.statsPage);
 
   app.get('/getBattles', mid.requiresLogin, controllers.Battle.getBattles);
 
@@ -21,6 +20,8 @@ const router = (app) => {
   app.post('/deleteBattle', mid.requiresLogin, controllers.Battle.deleteBattle);
 
   app.get('/getUserStats', mid.requiresLogin, controllers.Battle.getUserStats);
+
+  app.get('/getUsageData', mid.requiresLogin, controllers.Battle.getUsageData);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };

@@ -5,6 +5,9 @@ const { Battle } = models;
 // Render the app view
 const battlePage = (req, res) => res.render('app');
 
+//render stats view
+const statsPage = (req, res) => res.render('stats');
+
 // Create a new battle entry
 const addBattle = async (req, res) => {
   if (!req.body.league || !req.body.playerPokemon || !req.body.enemyPokemon || !req.body.outcome) {
@@ -115,10 +118,94 @@ const getUserStats = async (req, res) => {
   }
 };
 
+const getUsageData = async (req, res) => {
+  try {
+    const battles = await Battle.find({ owner: req.session.account._id }).lean().exec();
+
+    const totalBattles = battles.length;
+    if (totalBattles === 0) {
+      return res.json({ user: [], enemy: [] });
+    }
+
+    const userUsage = {};
+    const enemyUsage = {};
+
+    // Count how often each Pokémon is used
+    battles.forEach((battle) => {
+      battle.playerPokemon.forEach((pokemon) => {
+        if (!userUsage[pokemon]) {
+          userUsage[pokemon] = 0;
+        }
+        userUsage[pokemon] += 1;
+      });
+
+      battle.enemyPokemon.forEach((pokemon) => {
+        if (!enemyUsage[pokemon]) {
+          enemyUsage[pokemon] = 0;
+        }
+        enemyUsage[pokemon] += 1;
+      });
+    });
+
+    // Convert userUsage to an array of objects
+    const userArray = [];
+    for (const pokemon in userUsage) {
+      const count = userUsage[pokemon];
+      userArray.push({
+        name: pokemon,
+        count,
+        percentage: (count / totalBattles) * 100,
+      });
+    }
+
+    // Sort the array by count descending
+    userArray.sort((a, b) => b.count - a.count);
+
+    // Take the top 5 Pokémon or pad with placeholders
+    const topUserPokemon = userArray.slice(0, 5);
+    while (topUserPokemon.length < 5) {
+      topUserPokemon.push({
+        name: 'N/A',
+        count: '-',
+        percentage: '-',
+      });
+    }
+
+    // Repeat for enemyUsage
+    const enemyArray = [];
+    for (const pokemon in enemyUsage) {
+      const count = enemyUsage[pokemon];
+      enemyArray.push({
+        name: pokemon,
+        count,
+        percentage: (count / totalBattles) * 100,
+      });
+    }
+
+    // Sort and slice for enemy Pokémon
+    enemyArray.sort((a, b) => b.count - a.count);
+    const topEnemyPokemon = enemyArray.slice(0, 5);
+    while (topEnemyPokemon.length < 5) {
+      topEnemyPokemon.push({
+        name: 'N/A',
+        count: '-',
+        percentage: '-',
+      });
+    }
+
+    return res.json({ user: topUserPokemon, enemy: topEnemyPokemon });
+  } catch (err) {
+    console.error('Error calculating usage data:', err);
+    return res.status(500).json({ error: 'Error calculating usage data.' });
+  }
+};
+
 module.exports = {
   battlePage,
+  statsPage,
   addBattle,
   getBattles,
   deleteBattle,
   getUserStats,
+  getUsageData,
 };

@@ -1,6 +1,9 @@
 const React = require('react');
 const helper = require('./helper.js');
+const Usage = require('./usage.jsx');
 const { useState, useEffect } = React;
+const { createRoot } = require('react-dom/client');
+
 
 // Map so the table displays nicer looking league names than 'GreatLeague'
 const leagueDisplayMap = {
@@ -72,4 +75,17 @@ const StatsTable = ({ reloadTrigger }) => {
   );
 };
 
-module.exports = StatsTable
+const Stats = () => (
+  <div>
+    <h1>Stats Overview</h1>
+    <StatsTable />
+    <Usage />
+  </div>
+);
+
+const init = () => {
+  const root = createRoot(document.getElementById('stats'));
+  root.render(<Stats />);
+};
+
+window.onload = init;
