@@ -43,13 +43,13 @@ const getDomos = async (req, res) => {
 
 const deleteDomo = async (req, res) => {
   try {
-    const { id } = req.body; 
+    const { id } = req.body;
 
     if (!id) {
       return res.status(400).json({ error: 'ID is required to delete a Domo.' });
     }
 
-    const accountId = req.session.account._id; 
+    const accountId = req.session.account._id;
 
     const deletedDomo = await Domo.findOneAndDelete({
       _id: id,
@@ -66,7 +66,6 @@ const deleteDomo = async (req, res) => {
     return res.status(500).json({ error: 'An error occurred while deleting the Domo.' });
   }
 };
-
 
 module.exports = {
   makerPage,

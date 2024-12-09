@@ -1,4 +1,5 @@
 const React = require('react');
+const helper = require('./helper.js');
 const { useState, useEffect } = React;
 
 // Map so the table displays nicer looking league names than 'GreatLeague'
@@ -19,22 +20,21 @@ const StatsTable = ({ reloadTrigger }) => {
     totalLosses: 0,
   });
 
-  const fetchStats = async () => {
-    try {
-      const response = await fetch('/getUserStats');
-      if (!response.ok) {
-        console.error('Failed to fetch stats');
-        return;
-      }
-
-      const data = await response.json();
-      setStats(data.stats);
-    } catch (err) {
-      console.error('Error fetching stats:', err);
-    }
-  };
-
   useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch('/getUserStats');
+        if (!response.ok) {
+          throw new Error('Failed to fetch stats.');
+        }
+        const data = await response.json();
+        setStats(data.stats);
+      } catch (err) {
+        helper.handleError('Error fetching stats.');
+        console.error('Error fetching stats:', err);
+      }
+    };
+  
     fetchStats();
   }, [reloadTrigger]);
 
@@ -58,6 +58,8 @@ const StatsTable = ({ reloadTrigger }) => {
           {Object.keys(stats)
             .filter((key) => key !== 'totalWins' && key !== 'totalLosses')
             .map((league) => (
+              //info on html tables (never used these)
+              //https://www.w3schools.com/html/html_tables.asp
               <tr key={league}>
                 <td>{leagueDisplayMap[league] || league}</td>
                 <td>{stats[league].wins}</td>
@@ -70,4 +72,4 @@ const StatsTable = ({ reloadTrigger }) => {
   );
 };
 
-module.exports = StatsTable;
+module.exports = StatsTable

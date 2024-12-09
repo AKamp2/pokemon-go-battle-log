@@ -92,7 +92,7 @@ const getUserStats = async (req, res) => {
     // Safely calculate stats
     battles.forEach((battle) => {
       const leagueStats = stats[battle.league];
-      
+
       // Skip if league is undefined or invalid
       if (!leagueStats) {
         console.warn(`Invalid league encountered: ${battle.league}`);
