@@ -41,7 +41,7 @@ redisClient.connect().then(() => {
       connectSrc: ["'self'", 'https://pokeapi.co'], // Allow fetch calls to pokeapi.co
       scriptSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "https://raw.githubusercontent.com"],
+      imgSrc: ["'self'", 'https://raw.githubusercontent.com'],
     },
   }));
   app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));

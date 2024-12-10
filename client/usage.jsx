@@ -49,7 +49,7 @@ const Usage = () => {
     <div>
       <h2>User Pokemon Usage</h2>
       <UsageTable usageData={userUsage} />
-      <h2>Enemy Pokemon Usage</h2>
+      <h2>Opponent Pokemon Usage</h2>
       <UsageTable usageData={enemyUsage} />
     </div>
   );

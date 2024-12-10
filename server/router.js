@@ -23,6 +23,9 @@ const router = (app) => {
 
   app.get('/getUsageData', mid.requiresLogin, controllers.Battle.getUsageData);
 
+  app.post('/addLoadout', mid.requiresLogin, controllers.Loadout.addLoadout);
+  app.get('/getLoadouts', mid.requiresLogin, controllers.Loadout.getLoadouts);
+
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 
