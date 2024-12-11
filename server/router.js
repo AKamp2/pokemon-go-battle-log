@@ -9,6 +9,9 @@ const router = (app) => {
 
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 
+  app.get('/changePassword', mid.requiresSecure, mid.requiresLogout, controllers.Account.changePasswordPage);
+  app.post('/changePassword', mid.requiresSecure, mid.requiresLogout, controllers.Account.changePassword);
+
   app.get('/app', mid.requiresLogin, controllers.Battle.battlePage);
   app.get('/stats', mid.requiresLogin, controllers.Battle.statsPage);
 

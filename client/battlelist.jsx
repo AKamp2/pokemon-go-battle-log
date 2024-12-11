@@ -4,15 +4,15 @@ const { useState, useEffect } = React;
 
 const fetchPokemonSprite = async (pokemonName) => {
     try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
+        const response = await fetch(`/api/pokemon?name=${pokemonName.toLowerCase()}`); // Fetch from server
         if (!response.ok) {
             throw new Error(`Failed to fetch sprite for ${pokemonName}`);
         }
         const data = await response.json();
-        return data.sprites.other["official-artwork"].front_default;
+        return data.spriteUrl; // Expecting the server to return sprite URL
     } catch (err) {
         console.error(err);
-        return "/path/to/placeholder.png"; // Provide a placeholder image in case of errors
+        return "/path/to/placeholder.png"; // Place holder image
     }
 };
 
@@ -56,10 +56,10 @@ const BattleEntry = ({ battle, handleDelete }) => {
                 <div className="player-team">
                     <h3>Player Team</h3>
                     <div className="pokemon-group">
-                        {battle.playerPokemon.map((pokemon, index) => (
-                            <div key={pokemon} className="pokemon-entry">
-                                <img src={playerSprites[index]} alt={pokemon} className="pokemon-sprite" />
-                                <span className="pokemon-label">{pokemon}</span>
+                        {playerSprites.map((sprite, index) => (
+                            <div key={`player-${index}`} className="pokemon-entry">
+                                <img src={sprite} alt={battle.playerPokemon[index]} className="pokemon-sprite" />
+                                <span className="pokemon-label">{battle.playerPokemon[index]}</span>
                             </div>
                         ))}
                     </div>
@@ -68,10 +68,10 @@ const BattleEntry = ({ battle, handleDelete }) => {
                 <div className="opponent-team">
                     <h3>Opponent Team</h3>
                     <div className="pokemon-group">
-                        {battle.enemyPokemon.map((pokemon, index) => (
-                            <div key={pokemon} className="pokemon-entry">
-                                <img src={opponentSprites[index]} alt={pokemon} className="pokemon-sprite" />
-                                <span className="pokemon-label">{pokemon}</span>
+                        {opponentSprites.map((sprite, index) => (
+                            <div key={`opponent-${index}`} className="pokemon-entry">
+                                <img src={sprite} alt={battle.enemyPokemon[index]} className="pokemon-sprite" />
+                                <span className="pokemon-label">{battle.enemyPokemon[index]}</span>
                             </div>
                         ))}
                     </div>
@@ -101,7 +101,6 @@ const BattleList = ({ reloadBattles, triggerReload }) => {
         loadBattlesFromServer();
     }, [reloadBattles]);
 
-    //this is for the delete button
     const handleDelete = async (id) => {
         try {
             await helper.sendPost('/deleteBattle', { id }, () => {

@@ -15,7 +15,7 @@ const addBattle = async (req, res) => {
   }
 
   if (req.body.playerPokemon.length !== 3 || req.body.enemyPokemon.length !== 3) {
-    return res.status(400).json({ error: 'You must select exactly 3 Pokémon for both player and enemy.' });
+    return res.status(400).json({ error: 'You must select exactly 3 Pokemon for both player and enemy.' });
   }
 
   const battleData = {
@@ -130,7 +130,7 @@ const getUsageData = async (req, res) => {
     const userUsage = {};
     const enemyUsage = {};
 
-    // Count how often each Pokémon is used
+    // Count how often each Pokemon is used
     battles.forEach((battle) => {
       battle.playerPokemon.forEach((pokemon) => {
         if (!userUsage[pokemon]) {
@@ -158,7 +158,7 @@ const getUsageData = async (req, res) => {
     // Sort the array by count descending
     userArray.sort((a, b) => b.count - a.count);
 
-    // Take the top 5 Pokémon or pad with placeholders
+    // Take the top 5 Pokemon or pad with placeholders
     const topUserPokemon = userArray.slice(0, 5);
     while (topUserPokemon.length < 5) {
       topUserPokemon.push({
@@ -175,7 +175,7 @@ const getUsageData = async (req, res) => {
       percentage: (count / totalBattles) * 100,
     }));
 
-    // Sort and slice for enemy Pokémon
+    // Sort and slice for enemy Pokemon
     enemyArray.sort((a, b) => b.count - a.count);
     const topEnemyPokemon = enemyArray.slice(0, 5);
     while (topEnemyPokemon.length < 5) {

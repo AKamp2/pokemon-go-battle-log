@@ -12,6 +12,7 @@ const RedisStore = require('connect-redis').default;
 const redis = require('redis');
 
 const router = require('./router.js');
+const pokemonRoutes = require('./pokemonRoutes.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -33,15 +34,14 @@ redisClient.on('error', (err) => console.log('Redis Client Error', err));
 redisClient.connect().then(() => {
   const app = express();
 
-  // need to update the security policy so pokeAPI works
+  // need to update the security policy so the image fetching works
   // https://helmetjs.github.io/#content-security-policy //code snippets
   app.use(helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ["'self'"], // Default for all resources
-      connectSrc: ["'self'", 'https://pokeapi.co'], // Allow fetch calls to pokeapi.co
-      scriptSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", 'https://raw.githubusercontent.com'],
+      defaultSrc: ["'self'"],
+      imgSrc: ["'self'", 'https://raw.githubusercontent.com'], // Allow images
+      scriptSrc: ["'self'"], 
+      styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles (if needed)
     },
   }));
   app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
@@ -63,6 +63,9 @@ redisClient.connect().then(() => {
   app.engine('handlebars', expressHandlebars.engine({ defaultLayout: '' }));
   app.set('view engine', 'handlebars');
   app.set('views', `${__dirname}/../views`);
+
+
+  app.use(pokemonRoutes);
 
   router(app);
 

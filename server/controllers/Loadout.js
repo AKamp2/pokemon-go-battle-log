@@ -6,7 +6,7 @@ const addLoadout = async (req, res) => {
   const { name, pokemon } = req.body;
 
   if (!name || !pokemon || pokemon.length !== 3) {
-    return res.status(400).json({ error: 'Loadout must have a name and exactly 3 Pokémon' });
+    return res.status(400).json({ error: 'Loadout must have a name and exactly 3 Pokemon' });
   }
 
   try {

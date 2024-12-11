@@ -11,14 +11,14 @@ const BattleSchema = new mongoose.Schema({
     set: setLeague,
   },
   playerPokemon: {
-    type: [String], // Array of Pokémon names
+    type: [String], // Array of Pokemon names
     required: true,
-    validate: [(val) => val.length === 3, 'Must have exactly 3 Pokémon.'],
+    validate: [(val) => val.length === 3, 'Must have exactly 3 Pokemon.'],
   },
   enemyPokemon: {
-    type: [String], // Array of opponent Pokémon names
+    type: [String], // Array of opponent Pokemon names
     required: true,
-    validate: [(val) => val.length === 3, 'Must have exactly 3 Pokémon.'],
+    validate: [(val) => val.length === 3, 'Must have exactly 3 Pokemon.'],
   },
   outcome: {
     type: String,

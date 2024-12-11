@@ -54,7 +54,7 @@ const Loadouts = ({ populatePlayerPokemon }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [pokemonList, setPokemonList] = useState([]);
 
-    // Fetch saved loadouts and Pokémon list
+    // Fetch saved loadouts and Pokemon list
     useEffect(() => {
         const fetchLoadouts = async () => {
             try {
@@ -69,13 +69,17 @@ const Loadouts = ({ populatePlayerPokemon }) => {
             }
         };
 
+        //used same pokemon list code as the search functions for other forms
         const fetchPokemonList = async () => {
             try {
-                const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1000');
+                const response = await fetch('/api/pokemon');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch Pokemon data.');
+                }
                 const data = await response.json();
-                setPokemonList(data.results.map((pokemon) => pokemon.name));
+                setPokemonList(data.map((pokemon) => pokemon.name)); // Extract names for dropdown
             } catch (error) {
-                console.error('Error fetching Pokémon list:', error);
+                console.error('Error fetching Pokemon:', error);
             }
         };
 
@@ -86,7 +90,7 @@ const Loadouts = ({ populatePlayerPokemon }) => {
     const handleCreateLoadout = async (e) => {
         e.preventDefault();
         if (newLoadout.pokemon.some((poke) => poke === '') || newLoadout.name.trim() === '') {
-            helper.handleError('Please provide a name and select 3 Pokémon.');
+            helper.handleError('Please provide a name and select 3 Pokemon.');
             return;
         }
 
@@ -107,7 +111,7 @@ const Loadouts = ({ populatePlayerPokemon }) => {
         <div className="loadouts">
             <h2>Team Loadouts</h2>
 
-            {/* Create Loadout Form */}
+            
             <form onSubmit={handleCreateLoadout} className="loadout-form">
                 <input
                     type="text"
@@ -120,7 +124,7 @@ const Loadouts = ({ populatePlayerPokemon }) => {
                         key={`loadout-${index}`}
                         options={pokemonList}
                         value={poke}
-                        placeholder={`Pokémon ${index + 1}`}
+                        placeholder={`Pokemon ${index + 1}`}
                         onChange={(value) => {
                             const updatedPokemon = [...newLoadout.pokemon];
                             updatedPokemon[index] = value;

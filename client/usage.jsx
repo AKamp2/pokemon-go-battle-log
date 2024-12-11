@@ -7,7 +7,7 @@ const UsageTable = ({ usageData }) => (
     <table>
       <thead>
         <tr>
-          <th>Pokémon</th>
+          <th>Pokemon</th>
           <th>Total Usage</th>
           <th>Percentage of Battles</th>
         </tr>

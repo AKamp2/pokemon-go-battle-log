@@ -4,20 +4,24 @@
     <meta charset="utf-8" />
     <title>Pokemon Go Battle Log</title>
     <link rel="shortcut icon" href="/assets/img/pokeball-icon-svg.svg" />
-    <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/statsStyles.css" />
 </head>
 
 <body>
-    <nav>
-        <a href="/login"><img id="logo" src="/assets/img/league-logo.png" alt="league logo" /></a>
-        <div class="navlink">
-            <a href="/app">Battle Log</a>
-            <a href="/stats">Stats</a>
-            <a href="/logout">Log out</a>
+    <nav class="vertical-nav">
+        <a href="/login" id="logoLink">
+            <img id="logo" src="/assets/img/league-logo.png" alt="league logo" />
+        </a>
+        <div class="navlink-container">
+            <a href="/app" class="navlink">Battle Log</a>
+            <a href="/stats" class="navlink">Stats</a>
+            <a href="/logout" class="navlink">Log out</a>
         </div>
     </nav>
 
-    <div id="stats"></div>
+    <div class="stats-container">
+        <div id="stats"></div>
+    </div>
 
     <div id="errorPopup" class="hidden">
         <img id="errorIcon" src="/assets/img/exclamation.png" alt="Error Icon" />

@@ -56,19 +56,22 @@ const BattleForm = ({ triggerReload, initialPlayerPokemon = ['', '', ''] }) => {
     const [outcome, setOutcome] = useState('');
   
     useEffect(() => {
-      const fetchPokemon = async () => {
-        try {
-          const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1030');
-          const data = await response.json();
-          setPokemonList(data.results.map((pokemon) => pokemon.name));
-        } catch (error) {
-          console.error('Error fetching Pokemon:', error);
-        }
-      };
-      fetchPokemon();
+        const fetchPokemon = async () => {
+            try {
+                const response = await fetch('/api/pokemon');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch Pokemon data.');
+                }
+                const data = await response.json();
+                setPokemonList(data.map((pokemon) => pokemon.name)); // Extract names for dropdown
+            } catch (error) {
+                console.error('Error fetching Pokemon:', error);
+            }
+        };
+        fetchPokemon();
     }, []);
   
-    // Update player Pokémon if initialPlayerPokemon changes
+    // Update player Pokemon if initialPlayerPokemon changes
     useEffect(() => {
       setPlayerPokemon(initialPlayerPokemon);
     }, [initialPlayerPokemon]);

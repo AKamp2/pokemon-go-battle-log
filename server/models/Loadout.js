@@ -11,9 +11,9 @@ const LoadoutSchema = new mongoose.Schema({
     set: setName,
   },
   pokemon: {
-    type: [String], // Array of Pokémon names
+    type: [String], // Array of Pokemon names
     required: true,
-    validate: [(val) => val.length === 3, 'A loadout must have exactly 3 Pokémon.'],
+    validate: [(val) => val.length === 3, 'A loadout must have exactly 3 Pokemon.'],
   },
   owner: {
     type: mongoose.Schema.ObjectId,

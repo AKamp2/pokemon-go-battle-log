@@ -4,9 +4,9 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #517bad;
     display: flex;
-  }
-  
-  .vertical-nav {
+}
+
+.vertical-nav {
     width: 170px;
     background-color: #001f3f;
     height: 100vh;
@@ -15,26 +15,26 @@ body {
     align-items: center;
     padding: 20px 10px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  #logoLink {
+}
+
+#logoLink {
     margin-bottom: 20px;
-  }
-  
-  #logo {
+}
+
+#logo {
     width: 150px;
     height: auto;
-  }
-  
-  .navlink-container {
+}
+
+.navlink-container {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-  
-  .navlink {
+}
+
+.navlink {
     text-decoration: none;
     color: #ffffff;
     background-color: #003366;
@@ -44,87 +44,33 @@ body {
     text-align: center;
     font-size: 16px;
     width: 90%;
-  }
-  
-  .navlink:hover {
-    background-color: #00509e;
-  }
-  
+}
 
-  .login-container {
+.navlink:hover {
+    background-color: #00509e;
+}
+
+.stats-container {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-  }
-  
-  .login-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .login-title .logo {
-    width: 200px;
-    height: auto;
-  }
-  
-  .login-title .title-text {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffd700;
-    margin: 0;
-  }
-  
-  #content {
-    width: 100%;
-    max-width: 400px;
-    background-color: #ffffff;
+    justify-content: flex-start;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #333333;
-  }
-  
-  input[type="text"],
-  input[type="password"] {
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    font-size: 14px;
     width: 100%;
-  }
-  
-  .formSubmit {
-    background-color: #bf0a0d;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .formSubmit:hover {
-    background-color: #a3090b;
-  }
-  
+}
 
-  #errorPopup {
+#stats {
+    width: 100%;
+    max-width: 800px;
+    background-color: #ffffff;
+    border: 2px solid #00509e;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#errorPopup {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -138,13 +84,13 @@ body {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     font-size: 14px;
     z-index: 1000;
-  }
-  
-  #errorPopup.hidden {
+}
+
+#errorPopup.hidden {
     display: none;
-  }
-  
-  #errorIcon {
+}
+
+#errorIcon {
     width: 20px;
     height: 20px;
-  }
+}

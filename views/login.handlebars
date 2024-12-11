@@ -4,23 +4,29 @@
   <meta charset="utf-8" />
   <title>Pokemon Go Battle Log</title>
   <link rel="shortcut icon" href="/assets/img/pokeball-icon-svg.svg" />
-  <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+  <link rel="stylesheet" type="text/css" href="/assets/loginStyles.css" />
 </head>
 
 <body>
-  <nav><a href="/login"><img id="logo" src="/assets/img/league-logo.png" alt="league logo" /></a>
-    <div class="navlink"><a id="loginButton" href="/login">Login</a></div>
-    <div class="navlink"><a id="signupButton" href="/signup">Sign up</a></div>
+  <nav class="vertical-nav">
+    <a href="/login" id="logoLink">
+      <img id="logo" src="/assets/img/league-logo.png" alt="league logo" />
+    </a>
+    <div class="navlink-container">
+      <a href="/login" id="loginButton" class="navlink">Login</a>
+      <a href="/signup" id="signupButton" class="navlink">Sign up</a>
+       <a href="/changePassword" id="changePasswordButton" class="navlink">Change Password</a>
+    </div>
   </nav>
 
-  <div class="login-title">
-    <img src="/assets/img/pokemon-go-logo.png" alt="Pokemon Go Logo" class="logo" />
-    <h1 class="title-text">Battle Log</h1>
+  <div class="login-container">
+    <div class="login-title">
+      <img src="/assets/img/pokemon-go-logo.png" alt="Pokemon Go Logo" class="logo" />
+      <h1 class="title-text">Battle Log</h1>
+    </div>
+
+    <section id="content"></section>
   </div>
-
-  <section id="content">
-
-  </section>
 
   <div id="errorPopup" class="hidden">
     <img id="errorIcon" src="/assets/img/exclamation.png" alt="Error Icon" />
