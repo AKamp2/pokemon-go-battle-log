@@ -1,12 +1,16 @@
+html,
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #517bad;
+    width: 100%;
+    height: 100%;
     display: flex;
-  }
-  /*https://www.w3schools.com/css/css_navbar_vertical.asp*/
-  .vertical-nav {
+    flex-direction: row;
+    background-color: #517bad;
+    font-family: Arial, sans-serif;
+}
+
+.vertical-nav {
     width: 170px;
     background-color: #001f3f;
     height: 100vh;
@@ -15,142 +19,30 @@ body {
     align-items: center;
     padding: 20px 10px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .battleList {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
-.battle-entry {
-  display: flex;
-  flex-direction: column;
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-radius: 10px;
-  border: 2px solid #00509e;
-}
-
-.battle-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.battle-league {
-  color: white;
-  background-color: #00509e;
-  padding: 5px 10px;
-  border-radius: 5px;
-  text-align: left;
-}
-
-.battle-outcome {
-  color: white;
-  background-color: #ffd700;
-  padding: 5px 10px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.battle-delete {
-  background-color: #bf0a0d;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.battle-delete:hover {
-  background-color: #a3090b;
-}
-
-.battle-teams {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.player-team,
-.opponent-team {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-}
-
-.player-team h3,
-.opponent-team h3 {
-  margin-bottom: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #003366;
-}
-
-.vs-text {
-  font-size: 24px;
-  font-weight: bold;
-  color: #00509e;
-  text-align: center;
-  flex-shrink: 0;
-  margin: 0 10px;
-}
-
-.pokemon-group {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.pokemon-entry {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.pokemon-sprite {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 5px;
-  border: 2px solid #ffd700;
-  border-radius: 50%;
-}
-
-.pokemon-label {
-  font-size: 14px;
-  color: #555555;
-  text-align: center;
-}
-  
-  #logoLink {
+#logoLink {
     margin-bottom: 20px;
-  }
-  
-  #logo {
+}
+
+#logo {
     width: 150px;
     height: auto;
-  }
-  
-  .navlink-container {
+}
+
+.navlink-container {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-  
-  .navlink {
+}
+
+.navlink {
     text-decoration: none;
     color: #ffffff;
     background-color: #003366;
@@ -160,22 +52,26 @@ body {
     text-align: center;
     font-size: 16px;
     width: 90%;
-  }
-  
-  .navlink:hover {
+}
+
+.navlink:hover {
     background-color: #00509e;
-  }
-  
-  .app-container {
+}
+
+.app-container {
+    margin-left: 170px;
     flex: 1;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     padding: 20px;
-    width: 100%;
-  }
-  
-  #app {
+    width: calc(100% - 170px);
+    box-sizing: border-box;
+    min-height: 100vh;
+    background-color: #517bad;
+}
+
+#app {
     width: 100%;
     max-width: 900px;
     background-color: #ffffff;
@@ -184,369 +80,230 @@ body {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    margin-top: 20px; 
-  }
-  
-  #errorPopup {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: white;
-    color: darkblue;
-    padding: 10px 15px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    z-index: 1000;
-  }
-  
-  #errorPopup.hidden {
-    display: none;
-  }
-  
-  #errorIcon {
-    width: 20px;
-    height: 20px;
-  }
+    gap: 20px;
+}
 
-  /* Battle List Container */
-  .battleList {
+/* Battle List Styles */
+.battleList {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
     padding: 10px 0;
-  }
-  
-  .battle-entry {
+}
+
+.battle-entry {
     display: flex;
     flex-direction: column;
     background-color: #9bb7d4;
     padding: 15px;
     border-radius: 10px;
     border: 2px solid #00509e;
-  }
-  
-  .battle-header {
+}
+
+.battle-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    gap: 10px;
     font-size: 18px;
     font-weight: bold;
-  }
-  
-  .battle-league {
-    color: white;
+    justify-content: space-between;
+}
+
+.battle-league,
+.battle-outcome,
+.battle-delete {
+    padding: 10px 15px;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+.battle-league {
     background-color: #00509e;
-    padding: 5px 10px;
-    border-radius: 5px;
-    text-align: left;
-    flex: 1;
-  }
-  
-  .battle-outcome {
     color: white;
+}
+
+.battle-outcome {
     background-color: #ffd700;
-    padding: 5px 10px;
-    border-radius: 5px;
-    text-align: center;
-    flex: 0.5;
-  }
-  
-  .battle-delete {
+    color: white;
+    margin-right: 55px;
+}
+
+.battle-delete {
     background-color: #bf0a0d;
+    font-size: 18px;
+    font-weight: bold;
     color: white;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    flex: 1;
-    text-align: right;
-  }
-  
-  .battle-delete:hover {
+}
+
+.battle-delete:hover {
     background-color: #a3090b;
-  }
-  
-  .battle-teams {
+}
+
+/* Teams Layout */
+.battle-teams {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .player-team,
-  .opponent-team {
+    gap: 20px;
+    align-items: center;
+}
+
+.player-team,
+.opponent-team {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1;
-  }
-  
-  .player-team h3,
-  .opponent-team h3 {
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #003366;
-  }
-  
-  .vs-text {
+}
+
+.pokemon-group {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.pokemon-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pokemon-sprite {
+    width: 75px;
+    height: 75px;
+    margin-bottom: 5px;
+    border: 2px solid #003366;
+    border-radius: 10px;
+    background: #6177bf
+}
+
+.pokemon-label {
+    font-size: 14px;
+    color: #555555;
+}
+
+.vs-text {
     font-size: 24px;
     font-weight: bold;
     color: #00509e;
     background-color: #ffffff;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     text-align: center;
     flex-shrink: 0;
-    margin: 0 10px;
-  }
-  
-  .pokemon-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .pokemon-entry {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .pokemon-sprite {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 5px;
-    border: 2px solid #003366;
-    border-radius: 10px;
-  }
-  
-  .pokemon-label {
-    font-size: 14px;
-    color: #555555;
-    text-align: center;
-  }
+    height: 30px
+}
 
-  .battleForm {
+/* Battle Form Styles */
+.battleForm {
     background-color: #ffffff;
     border: 2px solid #00509e;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 600px;
     margin: 20px auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
-  }
-  
-  .battleForm h2 {
+}
+
+.battleForm h2 {
     color: #00509e;
     text-align: center;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .battleForm label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #003366;
-    margin-bottom: 5px;
-  }
-  
-  .battleForm select {
+}
+
+.battleForm select,
+.dropdownInput {
     width: 100%;
     padding: 10px;
     border: 1px solid #cccccc;
     border-radius: 5px;
-    font-size: 14px;
     margin-bottom: 15px;
-  }
-  
-  .battleForm h3 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #00509e;
-    margin-bottom: 5px;
-  }
-  
-  .dropdown {
-    position: relative;
-    width: 100%;
-  }
-  
-  .dropdownInput {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  
-  .dropdownContent {
+}
+
+.dropdownContent {
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
     background-color: #ffffff;
     border: 1px solid #cccccc;
     border-radius: 5px;
     max-height: 200px;
     overflow-y: auto;
-    z-index: 1000;
-  }
-  
-  .dropdownOption {
-    padding: 10px;
-    font-size: 14px;
-    color: #333333;
-    cursor: pointer;
-  }
-  
-  .dropdownOption:hover {
-    background-color: #e6f0ff;
-  }
-  
-  input[type="submit"] {
-    background-color: #bf0a0d;
-    color: #ffffff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    align-self: center;
-    width: 50%;
-  }
-  
-  input[type="submit"]:hover {
-    background-color: #a3090b;
-  }
+}
 
-  .loadouts {
+.dropdownOption {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdownOption:hover {
+    background-color: #e6f0ff;
+}
+
+/* Loadouts */
+.loadouts {
     background-color: #ffffff;
     border: 2px solid #00509e;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
     max-width: 600px;
-    margin: 60px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .loadouts h2 {
-    color: #00509e;
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .loadout-form {
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
-  }
-  
-  .loadout-form input[type="text"] {
+}
+
+.loadout-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.loadout-form input[type="text"],
+.loadouts select {
     width: 100%;
     padding: 10px;
     border: 1px solid #cccccc;
     border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  .loadout-form button {
+}
+
+.loadout-form button {
     background-color: #bf0a0d;
-    color: #ffffff;
+    color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 10px;
     border-radius: 5px;
-    font-size: 16px;
     cursor: pointer;
-    align-self: center;
     width: 50%;
-  }
-  
-  .loadout-form button:disabled {
+    align-self: center;
+}
+
+.loadout-form button:hover {
     background-color: #a3090b;
-    cursor: not-allowed;
-  }
-  
-  .loadout-form button:hover:enabled {
-    background-color: #a3090b;
-  }
-  
-  .loadouts h3 {
-    color: #00509e;
-    font-size: 20px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  .loadouts select {
-    width: 100%;
+}
+
+
+#errorPopup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    color: darkblue;
     padding: 10px;
-    border: 1px solid #cccccc;
     border-radius: 5px;
-    font-size: 14px;
-    color: #333333;
-  }
-  
-  .loadouts select:hover {
-    border-color: #00509e;
-  }
-  
-  .dropdown {
-    position: relative;
-    width: 100%;
-  }
-  
-  .dropdownInput {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  .dropdownContent {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
-  }
-  
-  .dropdownOption {
-    padding: 10px;
-    font-size: 14px;
-    color: #333333;
-    cursor: pointer;
-  }
-  
-  .dropdownOption:hover {
-    background-color: #e6f0ff;
-  }
-  
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#errorPopup.hidden {
+    display: none;
+}
+
+#errorIcon {
+    width: 20px;
+    height: 20px;
+}

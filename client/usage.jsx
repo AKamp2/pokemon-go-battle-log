@@ -46,7 +46,7 @@ const Usage = () => {
   }, []);
 
   return (
-    <div>
+    <div class="usageSection">
       <h2>User Pokemon Usage</h2>
       <UsageTable usageData={userUsage} />
       <h2>Opponent Pokemon Usage</h2>
