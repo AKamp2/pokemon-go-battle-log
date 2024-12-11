@@ -150,7 +150,7 @@ const BattleForm = ({ triggerReload, initialPlayerPokemon = ['', '', ''] }) => {
             <option value="Loss">Loss</option>
           </select>
         </div>
-        <input type="submit" value="Log Battle" />
+        <input id='submit'type="submit" value="Log Battle" />
       </form>
     );
   };

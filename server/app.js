@@ -40,7 +40,7 @@ redisClient.connect().then(() => {
     directives: {
       defaultSrc: ["'self'"],
       imgSrc: ["'self'", 'https://raw.githubusercontent.com'], // Allow images
-      scriptSrc: ["'self'"], 
+      scriptSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles (if needed)
     },
   }));
@@ -63,7 +63,6 @@ redisClient.connect().then(() => {
   app.engine('handlebars', expressHandlebars.engine({ defaultLayout: '' }));
   app.set('view engine', 'handlebars');
   app.set('views', `${__dirname}/../views`);
-
 
   app.use(pokemonRoutes);
 

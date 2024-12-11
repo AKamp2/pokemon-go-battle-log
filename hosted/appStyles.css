@@ -284,6 +284,21 @@ body {
     background-color: #a3090b;
 }
 
+.battleForm #submit {
+    background-color: #bf0a0d;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 50%;
+    align-self: center;
+}
+
+.battleForm #submit:hover {
+    background-color: #a3090b;
+}
+
 
 #errorPopup {
     position: fixed;

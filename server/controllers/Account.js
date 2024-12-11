@@ -57,7 +57,7 @@ const signup = async (req, res) => {
   }
 };
 
-//change password implementation - very similar to signup
+// change password implementation - very similar to signup
 const changePassword = async (req, res) => {
   const username = `${req.body.username}`;
   const pass = `${req.body.pass}`;
